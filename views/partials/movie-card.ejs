@@ -1,0 +1,18 @@
+<a class="media-card" href="/movie/<%= item.id %>">
+  <div class="media-poster">
+    <img
+      src="<%= item.posterUrl %>"
+      alt="<%= item.title %> poster"
+      loading="lazy"
+      width="300"
+      height="450"
+    />
+    <div class="media-overlay">
+      <span class="play-chip">Play</span>
+    </div>
+  </div>
+  <div class="media-meta">
+    <h3><%= item.title %></h3>
+    <p><%= item.year || 'N/A' %> • <%= item.rating ? item.rating.toFixed(1) : 'N/A' %></p>
+  </div>
+</a>
