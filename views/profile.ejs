@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <%- include('./partials/navbar') %>
+  <main class="container page-pad">
+    <div class="surface-card">
+      <h1><%= user.username %></h1>
+      <p><%= user.email %></p>
+      <form method="POST" action="/logout">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <button class="btn btn-secondary" type="submit">Logout</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>
