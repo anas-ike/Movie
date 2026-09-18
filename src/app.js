@@ -44,10 +44,10 @@ export function createApp() {
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
-          styleSrc: ["'self'", "'unsafe-inline'", "[cdn.jsdelivr.net](https://cdn.jsdelivr.net)"],
+          styleSrc: ["'self'", "'unsafe-inline'", 'https://cdn.jsdelivr.net'],
           scriptSrc: ["'self'", "'unsafe-inline'"],
-          imgSrc: ["'self'", 'data:', '[image.tmdb.org](https://image.tmdb.org)'],
-          fontSrc: ["'self'", "[cdn.jsdelivr.net](https://cdn.jsdelivr.net)"],
+          imgSrc: ["'self'", 'data:', 'https://image.tmdb.org'],
+          fontSrc: ["'self'", 'https://cdn.jsdelivr.net'],
           frameSrc,
           connectSrc,
           objectSrc: ["'none'"],
@@ -85,7 +85,7 @@ export function createApp() {
 
   app.get('/sitemap.xml', (req, res) => {
     res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="[sitemaps.org](http://www.sitemaps.org/schemas/sitemap/0.9)">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>${env.siteUrl}/</loc></url>
   <url><loc>${env.siteUrl}/movies</loc></url>
   <url><loc>${env.siteUrl}/tv</loc></url>

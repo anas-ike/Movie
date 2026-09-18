@@ -30,6 +30,10 @@ async function cached(key, ttl, fn) {
   return data;
 }
 
+export async function getMovieCredits(id) { return tmdbFetch(`/movie/${id}/credits`); }
+export async function getMovieVideos(id) { return tmdbFetch(`/movie/${id}/videos`); }
+export async function getMovieRecommendations(id) { const data = await tmdbFetch(`/movie/${id}/recommendations`); return { ...data, results: (data.results || []).map((item) => normalizeMedia(item, 'movie')) }; }
+
 export async function getMovie(id) {
   return cached(`movie:${id}`, 21600, async () => {
     const data = await tmdbFetch(`/movie/${id}`, {
