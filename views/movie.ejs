@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= metaDescription %>" />
+  <meta property="og:title" content="<%= movie.title %>" />
+  <meta property="og:description" content="<%= movie.overview %>" />
+  <meta property="og:image" content="<%= movie.backdropUrl %>" />
+  <meta property="og:type" content="video.movie" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+</head>
+<body>
+  <%- include('./partials/navbar') %>
+
+  <main class="page-pad">
+    <section class="detail-hero" style="background-image: linear-gradient(to top, rgba(5,5,5,.95), rgba(5,5,5,.75)), url('<%= movie.backdropUrl %>');">
+      <div class="container detail-layout">
+        <img class="detail-poster" src="<%= movie.posterUrl %>" alt="<%= movie.title %> poster" />
+        <div class="detail-copy">
+          <h1><%= movie.title %></h1>
+          <p class="muted"><%= movie.originalTitle %></p>
+          <p><%= movie.year %> • <%= movie.runtime || 'N/A' %> min • ⭐ <%= movie.rating.toFixed(1) %></p>
+          <p><%= movie.overview %></p>
+          <p><strong>Director:</strong> <%= movie.director || 'N/A' %></p>
+
+          <div class="button-row">
+            <a class="btn btn-primary" href="/watch/movie/<%= movie.id %>">Watch</a>
+            <% if (user) { %>
+              <button
+                class="btn btn-secondary js-favorite-btn"
+                data-tmdb-id="<%= movie.id %>"
+                data-media-type="movie"
+                data-csrf="<%= csrfToken %>">
+                <%= favorite ? 'In Watchlist' : '+ Watchlist' %>
+              </button>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <% if (movie.recommendations?.length) { %>
+      <%- include('./partials/media-row', { title: 'Recommended', items: movie.recommendations }) %>
+    <% } %>
+  </main>
+
+  <%- include('./partials/footer') %>
+  <script src="/js/favorites.js"></script>
+</body>
+</html>
