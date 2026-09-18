@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+</head>
+<body>
+  <%- include('./partials/navbar') %>
+  <main class="container page-pad">
+    <form class="search-form" action="/search" method="GET">
+      <input type="search" name="q" value="<%= query %>" placeholder="Search movies and TV shows" />
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+    <% if (movies.length) { %>
+      <h2>Movies</h2>
+      <div class="grid-cards">
+        <% movies.forEach((item) => { %>
+          <%- include('./partials/movie-card', { item }) %>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <% if (shows.length) { %>
+      <h2>TV Shows</h2>
+      <div class="grid-cards">
+        <% shows.forEach((item) => { %>
+          <%- include('./partials/show-card', { item }) %>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+</body>
+</html>
