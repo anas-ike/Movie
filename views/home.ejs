@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= metaDescription %>" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link href="[cdn.jsdelivr.net](https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css)" rel="stylesheet" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+</head>
+<body>
+  <%- include('./partials/navbar') %>
+
+  <% if (!tmdbConfigured) { %>
+    <main class="container page-pad">
+      <div class="alert alert-warning">
+        TMDB is not configured. Add a valid TMDB_API_KEY to your environment.
+      </div>
+    </main>
+  <% } else { %>
+    <% if (heroItem) { %>
+      <%- include('./partials/hero', { heroItem }) %>
+    <% } %>
+
+    <% if (user && continueWatching.length) { %>
+      <section class="media-row-section">
+        <div class="container">
+          <div class="section-head"><h2>Continue Watching</h2></div>
+          <div class="continue-grid">
+            <% continueWatching.forEach((item) => { %>
+              <div class="surface-card">
+                <p><strong><%= item.media_type.toUpperCase() %></strong> • TMDB #<%= item.tmdb_id %></p>
+                <p><%= Math.round(item.progress_percent) %>% watched</p>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </section>
+    <% } %>
+
+    <%- include('./partials/media-row', { title: 'Trending Today', items: trending }) %>
+    <%- include('./partials/media-row', { title: 'Popular Movies', items: popularMovies }) %>
+    <%- include('./partials/media-row', { title: 'Popular TV Shows', items: popularTV }) %>
+    <%- include('./partials/media-row', { title: 'Top Rated', items: topRatedMovies }) %>
+  <% } %>
+
+  <%- include('./partials/footer') %>
+  <script src="/js/app.js"></script>
+</body>
+</html>
