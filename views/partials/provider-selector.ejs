@@ -1,0 +1,10 @@
+<div class="provider-selector" data-provider-selector>
+  <% providers.forEach((provider) => { %>
+    <button
+      type="button"
+      class="provider-btn <%= selectedProvider === provider.key ? 'active' : '' %>"
+      data-provider="<%= provider.key %>">
+      <%= provider.name %>
+    </button>
+  <% }) %>
+</div>
