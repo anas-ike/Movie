@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= metaDescription %>" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/player.css" />
+</head>
+<body>
+  <%- include('./partials/navbar') %>
+
+  <main class="container page-pad">
+    <h1><%= show.title %></h1>
+    <p class="muted">Season <%= seasonData.seasonNumber %> • Episode <%= episode.episodeNumber %> • <%= episode.name %></p>
+
+    <div
+      class="watch-shell"
+      data-watch-page
+      data-media-type="tv"
+      data-tmdb-id="<%= show.id %>"
+      data-season="<%= seasonData.seasonNumber %>"
+      data-episode="<%= episode.episodeNumber %>"
+      data-api-url="/api/embed/tv/<%= show.id %>/<%= seasonData.seasonNumber %>/<%= episode.episodeNumber %>"
+      data-selected-provider="<%= selectedProvider %>"
+      data-csrf="<%= csrfToken %>">
+      <div class="player-wrapper">
+        <div class="player-loading" data-player-loading>Loading player...</div>
+        <iframe
+          data-player-iframe
+          src="<%= embedUrl %>"
+          title="Video player for <%= show.title %> <%= episode.name %>"
+          allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+          allowfullscreen
+          referrerpolicy="origin"></iframe>
+      </div>
+
+      <%- include('./partials/provider-selector', { providers, selectedProvider }) %>
+      <%- include('./partials/player-options') %>
+    </div>
+
+    <div class="episode-nav">
+      <% if (episode.episodeNumber > 1) { %>
+        <a class="btn btn-secondary" href="/watch/tv/<%= show.id %>/<%= seasonData.seasonNumber %>/<%= episode.episodeNumber - 1 %>">Previous Episode</a>
+      <% } %>
+      <a class="btn btn-secondary" href="/tv/<%= show.id %>/season/<%= seasonData.seasonNumber %>">Episode List</a>
+      <% if (episode.episodeNumber < seasonData.episodes.length) { %>
+        <a class="btn btn-primary" href="/watch/tv/<%= show.id %>/<%= seasonData.seasonNumber %>/<%= episode.episodeNumber + 1 %>">Next Episode</a>
+      <% } %>
+    </div>
+  </main>
+
+  <script>
+    window.LIGHTSOUT_PROVIDER_ORIGINS = <%- JSON.stringify(providers.map(p => ({ key: p.key, origin: p.origin }))) %>;
+  </script>
+  <script src="/js/player.js"></script>
+  <script src="/js/watch-progress.js"></script>
+</body>
+</html>
