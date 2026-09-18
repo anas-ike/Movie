@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <%- include('./partials/navbar') %>
+  <main class="container page-pad">
+    <h1>Watch History</h1>
+    <div class="surface-list">
+      <% items.forEach((item) => { %>
+        <div class="surface-card">
+          <p>
+            <strong><%= item.media.title %></strong>
+            <% if (item.media_type === 'tv') { %>
+              - S<%= item.season %>E<%= item.episode %>
+            <% } %>
+          </p>
+          <p class="muted"><%= new Date(item.watched_at).toLocaleString() %></p>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+</body>
+</html>
