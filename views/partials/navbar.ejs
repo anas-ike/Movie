@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a class="logo" href="/">LIGHTSOUT</a>
+
+    <div class="nav-links">
+      <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Home</a>
+      <a href="/movies">Movies</a>
+      <a href="/tv">TV Shows</a>
+      <a href="/search">Search</a>
+      <% if (user) { %>
+        <a href="/favorites">Watchlist</a>
+        <a href="/profile">Profile</a>
+      <% } else { %>
+        <a href="/login">Login</a>
+      <% } %>
+    </div>
+
+    <button class="mobile-menu-btn" aria-label="Open menu">
+      <i class="ri-menu-line"></i>
+    </button>
+  </div>
+</nav>
