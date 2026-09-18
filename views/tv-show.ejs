@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= metaDescription %>" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+</head>
+<body>
+  <%- include('./partials/navbar') %>
+
+  <main class="page-pad">
+    <section class="detail-hero" style="background-image: linear-gradient(to top, rgba(5,5,5,.95), rgba(5,5,5,.75)), url('<%= show.backdropUrl %>');">
+      <div class="container detail-layout">
+        <img class="detail-poster" src="<%= show.posterUrl %>" alt="<%= show.title %> poster" />
+        <div class="detail-copy">
+          <h1><%= show.title %></h1>
+          <p><%= show.year %> • ⭐ <%= show.rating.toFixed(1) %></p>
+          <p><%= show.overview %></p>
+          <p><strong>Seasons:</strong> <%= show.numberOfSeasons %> • <strong>Episodes:</strong> <%= show.numberOfEpisodes %></p>
+
+          <div class="button-row">
+            <a class="btn btn-primary" href="/tv/<%= show.id %>/season/1">Browse Episodes</a>
+            <% if (user) { %>
+              <button
+                class="btn btn-secondary js-favorite-btn"
+                data-tmdb-id="<%= show.id %>"
+                data-media-type="tv"
+                data-csrf="<%= csrfToken %>">
+                <%= favorite ? 'In Watchlist' : '+ Watchlist' %>
+              </button>
+            <% } %>
+          </div>
+
+          <div class="season-list">
+            <% show.seasons.forEach((season) => { %>
+              <% if (season.seasonNumber > 0) { %>
+                <a class="season-chip" href="/tv/<%= show.id %>/season/<%= season.seasonNumber %>">
+                  Season <%= season.seasonNumber %>
+                </a>
+              <% } %>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <%- include('./partials/footer') %>
+  <script src="/js/favorites.js"></script>
+</body>
+</html>
