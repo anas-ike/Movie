@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <%- include('./partials/navbar') %>
+  <main class="container page-pad narrow">
+    <form class="auth-form surface-card" method="POST" action="/register">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+      <h1>Create account</h1>
+      <% if (error) { %><div class="alert alert-danger"><%= error %></div><% } %>
+      <label>Username <input type="text" name="username" required /></label>
+      <label>Email <input type="email" name="email" required /></label>
+      <label>Password <input type="password" name="password" required minlength="8" /></label>
+      <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+  </main>
+</body>
+</html>
