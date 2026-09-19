@@ -1,14 +1,10 @@
-<section class="hero" style="background-image: linear-gradient(to right, rgba(5,5,5,.95), rgba(5,5,5,.65), rgba(5,5,5,.8)), url('<%= heroItem.backdropUrl %>');">
-  <div class="container hero-content">
-    <div class="hero-copy">
-      <span class="eyebrow"><%= heroItem.mediaType === 'movie' ? 'Movie' : 'TV Show' %></span>
-      <h1><%= heroItem.title %></h1>
-      <p class="hero-meta"><%= heroItem.year || 'N/A' %> • ⭐ <%= heroItem.rating ? heroItem.rating.toFixed(1) : 'N/A' %></p>
-      <p class="hero-overview"><%= heroItem.overview %></p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="<%= heroItem.mediaType === 'movie' ? `/watch/movie/${heroItem.id}` : `/tv/${heroItem.id}` %>">Watch Now</a>
-        <a class="btn btn-secondary" href="<%= heroItem.mediaType === 'movie' ? `/movie/${heroItem.id}` : `/tv/${heroItem.id}` %>">More Info</a>
-      </div>
-    </div>
-  </div>
+<section class="hero" style="background-image:url('<%= heroItem.backdropUrl %>')">
+  <div class="container hero-content"><div class="hero-copy">
+    <p class="eyebrow"><%= heroItem.mediaType === 'movie' ? 'Featured movie' : 'Featured series' %></p>
+    <h1><%= heroItem.title %></h1>
+    <p class="hero-meta"><%= heroItem.year || '—' %> &nbsp;•&nbsp; ★ <%= heroItem.rating ? heroItem.rating.toFixed(1) : '—' %></p>
+    <% if (heroItem.genres?.length) { %><div class="genre-list"><% heroItem.genres.slice(0, 3).forEach((genre) => { %><span><%= genre.name %></span><% }) %></div><% } %>
+    <p class="hero-overview"><%= heroItem.overview || 'Discover a new favorite on LIGHTSOUT.' %></p>
+    <div class="hero-actions"><a class="btn btn-primary btn-play" href="<%= heroItem.mediaType === 'movie' ? `/watch/movie/${heroItem.id}` : `/watch/tv/${heroItem.id}/1/1` %>">▶ Play</a><a class="btn btn-secondary" href="<%= heroItem.mediaType === 'movie' ? `/movie/${heroItem.id}` : `/tv/${heroItem.id}` %>">More info</a></div>
+  </div></div>
 </section>

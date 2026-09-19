@@ -1,3 +1,4 @@
+<<<<<<< ours
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,3 +33,6 @@
   <script src="/js/app.js"></script>
 </body>
 </html>
+=======
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title><%= pageTitle %></title><meta name="description" content="<%= metaDescription %>"><link rel="stylesheet" href="/css/app.css"><link rel="stylesheet" href="/css/components.css"><link rel="stylesheet" href="/css/player.css"><link rel="stylesheet" href="/css/responsive.css"></head><body><%- include('./partials/navbar') %><main class="container page-pad"><header class="page-heading"><p class="eyebrow">Episodes</p><h1><%= show.title %></h1><p>Season <%= season.seasonNumber %> · <%= season.episodes.length %> episodes</p></header><div class="episode-grid"><% season.episodes.forEach((ep) => { %><article class="episode-card"><img src="<%= ep.stillUrl %>" alt="<%= ep.name %> still" loading="lazy" decoding="async"><div class="episode-body"><h3>S<%= String(season.seasonNumber).padStart(2, '0') %>E<%= String(ep.episodeNumber).padStart(2, '0') %> · <%= ep.name %></h3><p><%= ep.overview || 'No overview is available for this episode.' %></p><a class="episode-play" href="/watch/tv/<%= show.id %>/<%= season.seasonNumber %>/<%= ep.episodeNumber %>">▶ Watch episode</a></div></article><% }) %></div></main><%- include('./partials/footer') %><script src="/js/app.js"></script></body></html>
+>>>>>>> theirs

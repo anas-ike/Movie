@@ -35,6 +35,9 @@ export async function tmdbFetch(path, params = {}) {
     error.status = response.status;
     throw error;
   }
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   return response.json();
 }

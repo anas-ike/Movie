@@ -1,3 +1,4 @@
+<<<<<<< ours
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,3 +31,6 @@
   <script src="/js/app.js"></script>
 </body>
 </html>
+=======
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title><%= pageTitle %></title><link rel="stylesheet" href="/css/app.css"><link rel="stylesheet" href="/css/components.css"><link rel="stylesheet" href="/css/player.css"><link rel="stylesheet" href="/css/responsive.css"></head><body><%- include('./partials/navbar') %><main class="container page-pad"><header class="page-heading"><p class="eyebrow">Recently watched</p><h1>History</h1><p>Continue discovering where you left off.</p></header><% if (items.length) { %><div class="surface-list"><% items.forEach((item) => { %><article class="surface-card"><div><strong><%= item.media.title %></strong><p class="muted"><%= item.media_type === 'tv' ? `Season ${item.season} · Episode ${item.episode}` : 'Movie' %></p></div><time class="muted"><%= new Date(item.watched_at).toLocaleDateString() %></time></article><% }) %></div><% } else { %><div class="empty-state"><div><h2>No history yet</h2><p>Titles you play will appear here.</p></div></div><% } %></main><%- include('./partials/footer') %><script src="/js/app.js"></script></body></html>
+>>>>>>> theirs

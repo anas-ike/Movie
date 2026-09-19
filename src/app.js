@@ -58,6 +58,13 @@ export function createApp() {
     })
   );
 
+  // Assets are intentionally revalidated: filenames are not fingerprinted and stale CSS would break releases.
+  app.get('/sw.js', (req, res) => {
+    res.set('Cache-Control', 'no-store, max-age=0');
+    res.sendFile(path.resolve(__dirname, '../public/sw.js'));
+  });
+  app.use(express.static(path.resolve(__dirname, '../public'), { maxAge: 0, etag: true }));
+
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
@@ -77,8 +84,6 @@ export function createApp() {
   );
 
   app.use(localsMiddleware);
-  app.use(express.static(path.resolve(__dirname, '../public'), { maxAge: env.isProduction ? '7d' : 0 }));
-
   app.get('/robots.txt', (req, res) => {
     res.type('text/plain').send(`User-agent: *\nAllow: /\nSitemap: ${env.siteUrl}/sitemap.xml`);
   });

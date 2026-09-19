@@ -1,3 +1,4 @@
+<<<<<<< ours
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,3 +39,6 @@
   <script src="/js/app.js"></script>
 </body>
 </html>
+=======
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title><%= pageTitle %></title><link rel="stylesheet" href="/css/app.css"><link rel="stylesheet" href="/css/components.css"><link rel="stylesheet" href="/css/player.css"><link rel="stylesheet" href="/css/responsive.css"></head><body><%- include('./partials/navbar') %><main class="container page-pad"><header class="page-heading"><p class="eyebrow">Find your next watch</p><h1>Search</h1><p>Search across movies and TV shows.</p></header><form class="search-form" action="/search" method="GET" role="search"><input type="search" name="q" value="<%= query %>" placeholder="Search titles, people, and more" aria-label="Search movies and TV shows" autofocus><button class="btn btn-primary" type="submit">Search</button></form><% if (query && !movies.length && !shows.length) { %><div class="empty-state"><div><h2>No results found</h2><p>Try another title or a broader search.</p></div></div><% } %><% if (movies.length) { %><section class="media-row-section"><div class="section-head"><h2>Movies</h2></div><div class="grid-cards"><% movies.forEach((item) => { %><%- include('./partials/movie-card', { item }) %><% }) %></div></section><% } %><% if (shows.length) { %><section class="media-row-section"><div class="section-head"><h2>TV Shows</h2></div><div class="grid-cards"><% shows.forEach((item) => { %><%- include('./partials/show-card', { item }) %><% }) %></div></section><% } %></main><%- include('./partials/footer') %><script src="/js/search.js"></script><script src="/js/app.js"></script></body></html>
+>>>>>>> theirs
