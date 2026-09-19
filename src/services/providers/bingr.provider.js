@@ -1,7 +1,2 @@
-export function buildBingrMovieEmbed(config, tmdbId) {
-  return `${config.origin}/watch/movie/${tmdbId}`;
-}
-
-export function buildBingrTVEmbed(config, tmdbId, season, episode) {
-  return `${config.origin}/watch/tv/${tmdbId}/${season}/${episode}`;
-}
+export const buildBingrMovieEmbed = (config, id) => new URL(`watch/movie/${id}`, `${config.origin}/`).toString();
+export const buildBingrTVEmbed = (config, id, season, episode) => new URL(`watch/tv/${id}/${season}/${episode}`, `${config.origin}/`).toString();

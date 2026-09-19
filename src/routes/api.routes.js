@@ -5,6 +5,7 @@ import { validate } from '../middleware/validation.js';
 import { favoriteSchema, watchProgressSchema } from '../utils/validation.js';
 import { addFavorite, listFavorites, removeFavorite } from '../services/user.service.js';
 import { getContinueWatching, upsertWatchProgress } from '../services/watch.service.js';
+import { getProviderKeyForServer } from '../services/providers/provider.manager.js';
 
 const router = Router();
 
@@ -48,9 +49,17 @@ router.delete('/api/favorites/:id', requireAuth, requireCsrf, async (req, res, n
   }
 });
 
+router.get('/api/watch-progress', requireAuth, async (req, res, next) => {
+  try { const data = await getContinueWatching(req.session.user.id, 20); res.json({ success: true, data }); } catch (error) { next(error); }
+});
+
+router.delete('/api/watch-progress/:id', requireAuth, requireCsrf, async (req, res, next) => {
+  try { const result = await (await import('../config/database.js')).pool.query('DELETE FROM watch_progress WHERE id = $1 AND user_id = $2', [Number(req.params.id), req.session.user.id]); res.json({ success: true, data: result.rowCount }); } catch (error) { next(error); }
+});
+
 router.post('/api/watch-progress', requireAuth, requireCsrf, validate(watchProgressSchema), async (req, res, next) => {
   try {
-    const row = await upsertWatchProgress(req.session.user.id, req.validated);
+    const row = await upsertWatchProgress(req.session.user.id, { ...req.validated, provider: getProviderKeyForServer(req.validated.provider) });
     res.json({ success: true, data: row });
   } catch (error) {
     next(error);

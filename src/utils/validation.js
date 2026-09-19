@@ -20,7 +20,7 @@ export const searchSchema = z.object({
   page: z.coerce.number().int().min(1).max(500).optional().default(1)
 });
 
-export const providerSchema = z.enum(['vidstuck', 'vidfast', 'bingr']);
+export const providerSchema = z.string().regex(/^server-[1-9]\d*$/);
 
 export const watchProgressSchema = z.object({
   tmdbId: z.coerce.number().int().positive(),

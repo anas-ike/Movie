@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { pool } from '../config/database.js';
+import { validateCriticalEnv } from '../config/env.js';
 import { logger } from '../utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -18,6 +19,8 @@ async function ensureMigrationsTable() {
 }
 
 async function run() {
+  const { missing } = validateCriticalEnv();
+  if (missing.length) throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
   await ensureMigrationsTable();
 
   const migrationsDir = path.join(__dirname, 'migrations');
