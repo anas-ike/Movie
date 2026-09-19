@@ -36,6 +36,9 @@ export async function tmdbFetch(path, params = {}) {
     throw error;
   }
 <<<<<<< ours
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 =======
 >>>>>>> theirs

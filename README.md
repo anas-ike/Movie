@@ -32,3 +32,10 @@ server { listen 443 ssl; server_name example.com; location / { proxy_pass http:/
 ## Troubleshooting
 
 Broken posters are usually missing TMDB image paths; LIGHTSOUT uses HTTPS `image.tmdb.org` URLs and a local fallback. Check `/css/app.css` returns CSS if the UI is unstyled. TMDB keys stay server-side and are never sent to browser JavaScript.
+<<<<<<< ours
+=======
+
+### CSS deployment recovery
+
+If `curl /css/app.css` ever starts with `<<<<<<<`, `=======`, or `>>>>>>>`, the server is running a Git merge-conflict artifact, not a valid stylesheet. Deploy a clean commit and restart from a clean working tree; do **not** copy patch output into a CSS file. LIGHTSOUT runs `npm run verify` automatically before `npm start` and will now refuse to boot if those markers or escaped patch syntax are present. Static assets use cache revalidation and the service worker rotates its cache so a clean redeploy replaces old CSS.
+>>>>>>> theirs

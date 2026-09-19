@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "migrate": "node src/db/migrate.js"
+    "migrate": "node src/db/migrate.js",
+    "verify": "node scripts/verify-static-assets.js",
+    "prestart": "npm run verify"
   },
   "dependencies": {
     "argon2": "^0.41.1",
