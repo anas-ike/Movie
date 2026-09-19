@@ -15,7 +15,7 @@
   <%- include('./partials/navbar') %>
 
   <% if (!tmdbConfigured) { %>
-    <main class="container page-pad">
+    <main class="container page-pad"><header class="page-heading"><p class="eyebrow">Configuration needed</p><h1>LIGHTSOUT is ready</h1><p>Add a TMDB key to begin discovering titles.</p></header>
       <div class="alert alert-warning">
         TMDB is not configured. Add a valid TMDB_API_KEY to your environment.
       </div>
@@ -32,8 +32,8 @@
           <div class="continue-grid">
             <% continueWatching.forEach((item) => { %>
               <div class="surface-card">
-                <p><strong><%= item.media_type.toUpperCase() %></strong> • TMDB #<%= item.tmdb_id %></p>
-                <p><%= Math.round(item.progress_percent) %>% watched</p>
+                <p><strong><%= item.media_type === 'tv' ? 'TV episode' : 'Movie' %></strong></p>
+                <p class="muted"><%= Math.round(item.progress_percent) %>% watched</p>
               </div>
             <% }) %>
           </div>
