@@ -1,10 +1,8 @@
-<div class="provider-selector" data-provider-selector>
-  <% providers.forEach((provider) => { %>
-    <button
-      type="button"
-      class="provider-btn <%= selectedProvider === provider.key ? 'active' : '' %>"
-      data-provider="<%= provider.key %>">
-      <%= provider.name %>
-    </button>
-  <% }) %>
-</div>
+<section class="server-panel" aria-label="Playback servers">
+  <span class="server-label">Servers</span>
+  <div class="server-selector" data-server-selector>
+    <% servers.forEach((server) => { %>
+      <button type="button" class="server-btn <%= selectedServer === server.id ? 'active' : '' %>" data-server="<%= server.id %>" aria-pressed="<%= selectedServer === server.id %>"><%= server.label %></button>
+    <% }) %>
+  </div>
+</section>

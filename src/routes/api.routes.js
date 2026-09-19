@@ -5,6 +5,7 @@ import { validate } from '../middleware/validation.js';
 import { favoriteSchema, watchProgressSchema } from '../utils/validation.js';
 import { addFavorite, listFavorites, removeFavorite } from '../services/user.service.js';
 import { getContinueWatching, upsertWatchProgress } from '../services/watch.service.js';
+import { getProviderKeyForServer } from '../services/providers/provider.manager.js';
 
 const router = Router();
 
@@ -58,7 +59,7 @@ router.delete('/api/watch-progress/:id', requireAuth, requireCsrf, async (req, r
 
 router.post('/api/watch-progress', requireAuth, requireCsrf, validate(watchProgressSchema), async (req, res, next) => {
   try {
-    const row = await upsertWatchProgress(req.session.user.id, req.validated);
+    const row = await upsertWatchProgress(req.session.user.id, { ...req.validated, provider: getProviderKeyForServer(req.validated.provider) });
     res.json({ success: true, data: row });
   } catch (error) {
     next(error);

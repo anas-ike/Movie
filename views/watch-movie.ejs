@@ -14,7 +14,7 @@
   <%- include('./partials/navbar') %>
 
   <main class="container page-pad">
-    <h1><%= movie.title %></h1>
+    <h1 class="watch-heading"><%= movie.title %></h1>
 
     <div
       class="watch-shell"
@@ -22,10 +22,10 @@
       data-media-type="movie"
       data-tmdb-id="<%= movie.id %>"
       data-api-url="/api/embed/movie/<%= movie.id %>"
-      data-selected-provider="<%= selectedProvider %>"
+      data-selected-server="<%= selectedServer %>"
       data-csrf="<%= csrfToken %>">
       <div class="player-wrapper">
-        <div class="player-loading" data-player-loading>Loading player...</div>
+        <div class="player-loading" data-player-loading>Loading player...</div><p class="player-error" data-player-error hidden>That server could not be loaded. Please try another server.</p>
         <iframe
           data-player-iframe
           src="<%= embedUrl %>"
@@ -35,8 +35,7 @@
           referrerpolicy="origin"></iframe>
       </div>
 
-      <%- include('./partials/provider-selector', { providers, selectedProvider }) %>
-      <%- include('./partials/player-options') %>
+      <%- include('./partials/provider-selector', { servers, selectedServer }) %>
     </div>
 
     <section class="surface-card top-gap">
@@ -48,9 +47,6 @@
     </section>
   </main>
 
-  <script>
-    window.LIGHTSOUT_PROVIDER_ORIGINS = <%- JSON.stringify(providers.map(p => ({ key: p.key, origin: p.origin }))) %>;
-  </script>
   <script src="/js/player.js"></script>
   <script src="/js/watch-progress.js"></script>
   <script src="/js/app.js"></script>
